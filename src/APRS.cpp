@@ -45,6 +45,8 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <ossp/uuid++.hh>
+
 #include <openframe/openframe.h>
 
 #include "APRS.h"
@@ -318,6 +320,8 @@ const bool APRS::_parse() {
   _id = md5.getHashFromString(s.str());
   addString("aprs.packet.md5.id", _id);
 
+  addString("aprs.packet.uuid.id", _create_uuid());
+
   /**
    * Date Information
    *
@@ -456,6 +460,15 @@ const bool APRS::_parse() {
 
   return true;
 } // APRS::_parse
+
+const std::string APRS::_create_uuid() {
+  uuid id;
+  id.make(UUID_MAKE_V1);
+  char *str = id.string();
+  string ret = string(str);
+  free(str);
+  return ret;
+} // APRS::_create_uuid
 
 /**********************
  ** Altitude Members **

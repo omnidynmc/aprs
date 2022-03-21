@@ -123,6 +123,7 @@ class APRS : public openframe::StringTool {
 
   protected:
     // ### Members ###
+    const std::string _create_uuid();
     const bool _parse();
     const bool _parsePosition(const std::string &);
     const bool _parseMessage(const std::string &);
