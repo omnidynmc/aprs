@@ -2386,9 +2386,15 @@ bool APRS::_symbol(const char symbolTable, const char symbolCode) {
   s.str("");
   s << symbolTable;
   addString("aprs.packet.symbol.table", s.str());
+
+  bool isOverlay = symbolTable != '\\' && symbolTable != '/';
+  if (isOverlay)
+    addString("aprs.packet.symbol.overlay", s.str());
+
   s.str("");
   s << symbolCode;
   addString("aprs.packet.symbol.code", s.str());
+
 
   _symbolTable = symbolTable;
   _symbolCode = symbolCode;
